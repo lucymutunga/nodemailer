@@ -1,23 +1,17 @@
 const express = require("express");
-const { router } = require("./routes/userRoutes");
+const { userRoutes } = require("./routes/userRoutes");
 
-//creating the app server
+
 const app = express();
-//enable sending json on the body of the request
-app.use(express.json());
-//defines where traffic/requests will be sent
-app.use("/", router);
 
-//handles undefined rules
-app.use("*", (req, res) => {
-  res.status(404).json({
-    message: "Endpoint not found",
-    success: false,
-  });
-});
+app.use(express.json());
+
+app.use("/", userRoutes);
+
+
 const port = 5000;
 
-//starts the server
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
